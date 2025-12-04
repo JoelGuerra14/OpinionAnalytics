@@ -16,16 +16,16 @@ namespace OpinionAnalytics.Persistence.Dw
 {
     public class DbDataLoaderRepository : IDataLoaderRepository
     {
-        private readonly DwDbContext _context;
+        private readonly DwhContext _context;
         private readonly ILogger<DbDataLoaderRepository> _logger;
 
-        public DbDataLoaderRepository(DwDbContext context, ILogger<DbDataLoaderRepository> logger)
+        public DbDataLoaderRepository(DwhContext context, ILogger<DbDataLoaderRepository> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        //Provisional para guardar en tablas staging
+        // Provisional para guardar las tablas staging del fact
         public async Task SaveSurveysAsync(IEnumerable<Survey> surveys)
         {
             if (surveys == null || !surveys.Any())

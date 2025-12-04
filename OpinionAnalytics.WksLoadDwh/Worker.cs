@@ -18,12 +18,28 @@ namespace OpinionAnalytics.WksLoadDwh
         {
             _logger.LogInformation("?? Worker iniciado.");
 
-            // creamos un “alcance” temporal para los servicios scoped
             using (var scope = _serviceProvider.CreateScope())
             {
-                var etl = scope.ServiceProvider.GetRequiredService<IETLService>();
-                await etl.RunAsync(stoppingToken);
+                try
+                {
+                    //Carga de Dimensiones
+                    var dimHandler = scope.ServiceProvider.GetRequiredService<IDimHandlerService>();
+                    await dimHandler.ProcessDimensionsAsync();
+
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error en el proceso del Worker");
+                }
             }
+
+            // Carga de tablas staging
+            //using (var scope = _serviceProvider.CreateScope())
+            //{
+            //    var etl = scope.ServiceProvider.GetRequiredService<IETLService>();
+            //    await etl.RunAsync(stoppingToken);
+            //}
 
             _logger.LogInformation("?? ETL completado. Worker detenido.");
         }

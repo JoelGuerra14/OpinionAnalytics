@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Http;
+using OpinionAnalytics.Application.DTOs;
 using OpinionAnalytics.Application.Interfaces;
 using OpinionAnalytics.Application.Repositories;
 using OpinionAnalytics.Application.Services;
@@ -27,7 +28,7 @@ namespace OpinionAnalytics.WksLoadDwh
             builder.Services.AddDbContext<OpinionAnalyticsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("OltpConnection")));
 
-            builder.Services.AddDbContext<DwDbContext>(options =>
+            builder.Services.AddDbContext<DwhContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DwConnection")));
 
 
@@ -38,6 +39,13 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("OltpConnection")
             builder.Services.AddScoped<IReviewRepository, DbReviewRepository>();
 
             builder.Services.AddHttpClient<ICommentRepository, ApiCommentRepository>();
+
+            builder.Services.AddScoped<IDwhRepository, DwhRepository>();
+            builder.Services.AddScoped<IDimHandlerService, DimHandlerService>();
+
+            builder.Services.AddSingleton<IFileReader<CsvClienteDto>, CsvReader<CsvClienteDto>>();
+            builder.Services.AddSingleton<IFileReader<CsvProductoDto>, CsvReader<CsvProductoDto>>();
+            builder.Services.AddSingleton<IFileReader<CsvFuenteDto>, CsvReader<CsvFuenteDto>>();
 
             builder.Services.AddScoped<IETLService, ETLService>();
             builder.Services.AddScoped<IDataLoaderRepository, DbDataLoaderRepository>();
