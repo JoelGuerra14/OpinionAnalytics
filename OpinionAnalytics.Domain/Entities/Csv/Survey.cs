@@ -1,6 +1,8 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ namespace OpinionAnalytics.Domain.Entities.Csv
 {
     public class Survey
     {
+        [Key]
         [Name("IdOpinion")]
         public string IdOpinion { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace OpinionAnalytics.Domain.Entities.Api
 {
-    [Keyless]
     [Table("SocialComments")]
     public class Comment
     {
+        [Key]
         public string? IdComment { get; set; }
 
         public string? IdCliente { get; set; }

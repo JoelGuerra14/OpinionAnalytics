@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpinionAnalytics.Application.Interfaces
 {
-    public interface IETLService
+    public interface IFactHandlerService
     {
-        Task RunAsync(CancellationToken cancellationToken);
+        Task ProcessFactsAsync();
     }
 }
